@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Le Bistrot du Coin — Restaurant à Drancy</title>
+<meta name="description" content="Restaurant Le Bistrot du Coin à Drancy. Cuisine française traditionnelle, produits frais, ambiance chaleureuse. Réservez votre table.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Inter', sans-serif;
+    color: #2a2a2a;
+    line-height: 1.6;
+    background: #fdfaf5;
+  }
+  h1, h2, h3 { font-family: 'Playfair Display', serif; font-weight: 700; }
+
+  /* Nav */
+  nav {
+    position: fixed; top: 0; width: 100%;
+    background: rgba(253, 250, 245, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 100; padding: 18px 5%;
+    display: flex; justify-content: space-between; align-items: center;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .logo { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #1a3a2e; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { color: #2a2a2a; text-decoration: none; font-size: 14px; font-weight: 500; transition: color 0.2s; }
+  .nav-links a:hover { color: #c89b3f; }
+  .nav-cta {
+    background: #1a3a2e; color: #fdfaf5; padding: 10px 22px;
+    border-radius: 50px; text-decoration: none; font-size: 14px; font-weight: 500;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: #c89b3f; }
+  .menu-toggle { display: none; background: none; border: none; font-size: 24px; cursor: pointer; }
+
+  /* Hero */
+  .hero {
+    height: 100vh; min-height: 600px;
+    background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.5)),
+                url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1600&q=80') center/cover;
+    display: flex; flex-direction: column; justify-content: center; align-items: center;
+    text-align: center; color: white; padding: 0 20px;
+  }
+  .hero-tag { font-size: 14px; letter-spacing: 4px; text-transform: uppercase; margin-bottom: 20px; opacity: 0.9; }
+  .hero h1 { font-size: clamp(42px, 7vw, 80px); margin-bottom: 24px; line-height: 1.1; }
+  .hero p { font-size: 18px; max-width: 600px; margin-bottom: 40px; opacity: 0.95; }
+  .hero-buttons { display: flex; gap: 16px; flex-wrap: wrap; justify-content: center; }
+  .btn-primary, .btn-secondary {
+    padding: 16px 36px; border-radius: 50px; text-decoration: none;
+    font-weight: 500; font-size: 15px; transition: all 0.3s;
+  }
+  .btn-primary { background: #c89b3f; color: white; }
+  .btn-primary:hover { background: #a88030; transform: translateY(-2px); }
+  .btn-secondary { background: transparent; color: white; border: 1.5px solid white; }
+  .btn-secondary:hover { background: white; color: #1a3a2e; }
+
+  /* Sections */
+  section { padding: 100px 5%; }
+  .section-tag { font-size: 13px; letter-spacing: 3px; text-transform: uppercase; color: #c89b3f; margin-bottom: 16px; font-weight: 500; }
+  .section-title { font-size: clamp(32px, 5vw, 48px); margin-bottom: 24px; color: #1a3a2e; }
+
+  /* About */
+  .about { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; max-width: 1200px; margin: 0 auto; }
+  .about-img {
+    border-radius: 8px; height: 500px;
+    background: url('https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=800&q=80') center/cover;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+  }
+  .about p { font-size: 17px; color: #555; margin-bottom: 16px; }
+  .about-stats { display: flex; gap: 40px; margin-top: 32px; }
+  .stat-num { font-family: 'Playfair Display', serif; font-size: 36px; color: #c89b3f; font-weight: 700; }
+  .stat-label { font-size: 13px; color: #777; text-transform: uppercase; letter-spacing: 1px; }
+
+  /* Menu */
+  .menu { background: #1a3a2e; color: #fdfaf5; }
+  .menu .section-title { color: #fdfaf5; }
+  .menu-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+  .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1100px; margin: 0 auto; }
+  .menu-category h3 { font-size: 24px; color: #c89b3f; margin-bottom: 30px; padding-bottom: 12px; border-bottom: 1px solid rgba(200, 155, 63, 0.3); }
+  .menu-item { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; gap: 20px; }
+  .menu-item-name { font-weight: 500; font-size: 17px; }
+  .menu-item-desc { font-size: 14px; color: rgba(253, 250, 245, 0.7); margin-top: 4px; }
+  .menu-item-price { font-family: 'Playfair Display', serif; color: #c89b3f; font-size: 18px; font-weight: 700; white-space: nowrap; }
+  .dotted { flex: 1; border-bottom: 1px dotted rgba(253, 250, 245, 0.3); margin: 0 8px; transform: translateY(-4px); }
+
+  /* Reviews */
+  .reviews { background: #fff; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 32px; max-width: 1200px; margin: 60px auto 0; }
+  .review-card { background: #fdfaf5; padding: 40px 32px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.06); }
+  .stars { color: #c89b3f; margin-bottom: 16px; font-size: 18px; }
+  .review-text { font-size: 16px; color: #444; font-style: italic; margin-bottom: 24px; }
+  .review-author { font-weight: 600; }
+  .review-platform { font-size: 13px; color: #999; }
+
+  /* Hours & Map */
+  .visit { background: #fdfaf5; }
+  .visit-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; max-width: 1200px; margin: 0 auto; }
+  .hours-block { background: white; padding: 40px; border-radius: 8px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+  .hours-row { display: flex; justify-content: space-between; padding: 14px 0; border-bottom: 1px solid #f0ebe0; }
+  .hours-row:last-child { border-bottom: none; }
+  .hours-day { font-weight: 500; }
+  .hours-time { color: #555; }
+  .closed { color: #c33; font-style: italic; }
+  .info-block { margin-top: 32px; }
+  .info-block p { color: #555; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; }
+  .info-icon { color: #c89b3f; font-weight: 700; }
+  .map-embed { border-radius: 8px; height: 100%; min-height: 450px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); overflow: hidden; }
+  .map-embed iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+  /* Contact */
+  .contact { background: #1a3a2e; color: #fdfaf5; text-align: center; }
+  .contact .section-title { color: #fdfaf5; }
+  .contact-form { max-width: 600px; margin: 50px auto 0; display: grid; gap: 20px; }
+  .contact-form input, .contact-form textarea {
+    padding: 16px 20px; border: 1px solid rgba(253, 250, 245, 0.3); background: rgba(253, 250, 245, 0.05);
+    color: #fdfaf5; border-radius: 6px; font-family: inherit; font-size: 15px;
+  }
+  .contact-form input::placeholder, .contact-form textarea::placeholder { color: rgba(253, 250, 245, 0.5); }
+  .contact-form button {
+    padding: 16px; background: #c89b3f; color: white; border: none; border-radius: 50px;
+    font-weight: 600; font-size: 15px; cursor: pointer; transition: background 0.2s;
+  }
+  .contact-form button:hover { background: #a88030; }
+
+  /* Footer */
+  footer { background: #0f2a20; color: rgba(253, 250, 245, 0.7); padding: 40px 5%; text-align: center; font-size: 14px; }
+  footer a { color: #c89b3f; text-decoration: none; }
+
+  /* Responsive */
+  @media (max-width: 800px) {
+    .nav-links { display: none; }
+    .menu-toggle { display: block; color: #1a3a2e; }
+    .about, .menu-grid, .visit-grid, .reviews-grid { grid-template-columns: 1fr; gap: 40px; }
+    .about-img { height: 350px; }
+    section { padding: 70px 5%; }
+    .reviews-grid { gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="logo">Le Bistrot du Coin</div>
+  <ul class="nav-links">
+    <li><a href="#about">L'histoire</a></li>
+    <li><a href="#menu">Carte</a></li>
+    <li><a href="#avis">Avis</a></li>
+    <li><a href="#visite">Nous trouver</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Réserver</a>
+</nav>
+
+<section class="hero">
+  <div class="hero-tag">Restaurant • Drancy</div>
+  <h1>Une cuisine généreuse,<br>au cœur de Drancy.</h1>
+  <p>Le Bistrot du Coin vous accueille depuis 2010 dans une ambiance chaleureuse et conviviale. Plats traditionnels français, produits frais du marché.</p>
+  <div class="hero-buttons">
+    <a href="#contact" class="btn-primary">Réserver une table</a>
+    <a href="#menu" class="btn-secondary">Voir la carte</a>
+  </div>
+</section>
+
+<section id="about">
+  <div class="about">
+    <div class="about-img"></div>
+    <div>
+      <div class="section-tag">L'histoire</div>
+      <h2 class="section-title">Une passion familiale<br>depuis 15 ans</h2>
+      <p>Tout a commencé en 2010 quand le chef Marc Lefèvre a ouvert ce petit bistrot de quartier avec une seule idée en tête : servir une vraie cuisine française, comme à la maison.</p>
+      <p>Aujourd'hui encore, chaque plat est préparé sur place, avec des produits frais sélectionnés chez nos producteurs partenaires.</p>
+      <div class="about-stats">
+        <div>
+          <div class="stat-num">15</div>
+          <div class="stat-label">Années</div>
+        </div>
+        <div>
+          <div class="stat-num">4.7★</div>
+          <div class="stat-label">Sur Google</div>
+        </div>
+        <div>
+          <div class="stat-num">100%</div>
+          <div class="stat-label">Fait maison</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="menu" class="menu">
+  <div class="menu-header">
+    <div class="section-tag">La carte</div>
+    <h2 class="section-title">Nos spécialités</h2>
+    <p>Une sélection de plats traditionnels revisités avec passion.</p>
+  </div>
+  <div class="menu-grid">
+    <div class="menu-category">
+      <h3>Entrées</h3>
+      <div class="menu-item"><div><div class="menu-item-name">Œuf parfait</div><div class="menu-item-desc">Champignons, lard fumé, parmesan</div></div><div class="dotted"></div><div class="menu-item-price">9€</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Velouté du moment</div><div class="menu-item-desc">Selon le marché du jour</div></div><div class="dotted"></div><div class="menu-item-price">8€</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Tartare de bœuf</div><div class="menu-item-desc">Coupé au couteau, frites maison</div></div><div class="dotted"></div><div class="menu-item-price">12€</div></div>
+
+      <h3 style="margin-top: 50px;">Desserts</h3>
+      <div class="menu-item"><div><div class="menu-item-name">Tarte Tatin</div><div class="menu-item-desc">Crème fraîche d'Isigny</div></div><div class="dotted"></div><div class="menu-item-price">8€</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Mousse au chocolat</div><div class="menu-item-desc">Recette de la maison</div></div><div class="dotted"></div><div class="menu-item-price">7€</div></div>
+    </div>
+    <div class="menu-category">
+      <h3>Plats</h3>
+      <div class="menu-item"><div><div class="menu-item-name">Entrecôte sauce poivre</div><div class="menu-item-desc">Frites maison, salade verte</div></div><div class="dotted"></div><div class="menu-item-price">22€</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Magret de canard</div><div class="menu-item-desc">Sauce miel-romarin, gratin dauphinois</div></div><div class="dotted"></div><div class="menu-item-price">21€</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Risotto aux cèpes</div><div class="menu-item-desc">Parmesan affiné 24 mois</div></div><div class="dotted"></div><div class="menu-item-price">18€</div></div>
+      <div class="menu-item"><div><div class="menu-item-name">Filet de bar</div><div class="menu-item-desc">Légumes croquants, beurre blanc</div></div><div class="dotted"></div><div class="menu-item-price">23€</div></div>
+
+      <h3 style="margin-top: 50px;">Menu midi</h3>
+      <div class="menu-item"><div><div class="menu-item-name">Formule express</div><div class="menu-item-desc">Plat + dessert + café (lun-ven)</div></div><div class="dotted"></div><div class="menu-item-price">17€</div></div>
+    </div>
+  </div>
+</section>
+
+<section id="avis" class="reviews">
+  <div style="text-align: center; max-width: 700px; margin: 0 auto;">
+    <div class="section-tag">Avis clients</div>
+    <h2 class="section-title">Ils en parlent mieux que nous</h2>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Une vraie pépite à Drancy. La tarte Tatin est à tomber et l'accueil est toujours chaleureux. On y retourne avec plaisir."</p>
+      <div class="review-author">Sophie M.</div>
+      <div class="review-platform">Google Avis</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"L'entrecôte est cuite à la perfection, les frites maison incroyables. Rapport qualité-prix imbattable, surtout au déjeuner."</p>
+      <div class="review-author">Karim B.</div>
+      <div class="review-platform">TripAdvisor</div>
+    </div>
+    <div class="review-card">
+      <div class="stars">★★★★★</div>
+      <p class="review-text">"Mon resto préféré du coin depuis des années. Le chef est passionné, ça se sent dans les plats. Je recommande à 200%."</p>
+      <div class="review-author">Aurélie D.</div>
+      <div class="review-platform">Google Avis</div>
+    </div>
+  </div>
+</section>
+
+<section id="visite" class="visit">
+  <div style="text-align: center; max-width: 700px; margin: 0 auto 60px;">
+    <div class="section-tag">Nous trouver</div>
+    <h2 class="section-title">Venez nous rendre visite</h2>
+  </div>
+  <div class="visit-grid">
+    <div>
+      <div class="hours-block">
+        <h3 style="margin-bottom: 20px; color: #1a3a2e;">Horaires d'ouverture</h3>
+        <div class="hours-row"><span class="hours-day">Lundi</span><span class="hours-time">12h-14h • 19h-22h</span></div>
+        <div class="hours-row"><span class="hours-day">Mardi</span><span class="hours-time">12h-14h • 19h-22h</span></div>
+        <div class="hours-row"><span class="hours-day">Mercredi</span><span class="hours-time">12h-14h • 19h-22h</span></div>
+        <div class="hours-row"><span class="hours-day">Jeudi</span><span class="hours-time">12h-14h • 19h-22h30</span></div>
+        <div class="hours-row"><span class="hours-day">Vendredi</span><span class="hours-time">12h-14h • 19h-23h</span></div>
+        <div class="hours-row"><span class="hours-day">Samedi</span><span class="hours-time">19h-23h</span></div>
+        <div class="hours-row"><span class="hours-day">Dimanche</span><span class="hours-time closed">Fermé</span></div>
+      </div>
+      <div class="info-block">
+        <p><span class="info-icon">▸</span> 12 avenue Henri Barbusse, 93700 Drancy</p>
+        <p><span class="info-icon">▸</span> 01 48 XX XX XX</p>
+        <p><span class="info-icon">▸</span> contact@bistrotducoin-drancy.fr</p>
+      </div>
+    </div>
+    <div class="map-embed">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2622.516!2d2.4458!3d48.9239!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDjCsDU1JzI2LjAiTiAywrAyNic0NS4wIkU!5e0!3m2!1sfr!2sfr!4v1700000000" loading="lazy"></iframe>
+    </div>
+  </div>
+</section>
+
+<section id="contact" class="contact">
+  <div style="max-width: 700px; margin: 0 auto;">
+    <div class="section-tag" style="color: #c89b3f;">Réservation</div>
+    <h2 class="section-title">Réservez votre table</h2>
+    <p style="opacity: 0.85;">Réponse sous 2h. Pour les groupes de plus de 8 personnes, appelez-nous directement.</p>
+    <form class="contact-form" onsubmit="event.preventDefault(); alert('Demande envoyée ! Nous vous recontactons rapidement.');">
+      <input type="text" placeholder="Votre nom" required>
+      <input type="email" placeholder="Votre email" required>
+      <input type="tel" placeholder="Votre téléphone">
+      <input type="text" placeholder="Date et nombre de personnes" required>
+      <textarea placeholder="Message (allergies, occasion, etc.)" rows="4"></textarea>
+      <button type="submit">Envoyer ma demande</button>
+    </form>
+  </div>
+</section>
+
+<footer>
+  <p>© 2026 Le Bistrot du Coin — Drancy. Tous droits réservés.</p>
+  <p style="margin-top: 8px;">Site créé par <a href="#">SekouWeb</a></p>
+</footer>
+
+</body>
+</html>
